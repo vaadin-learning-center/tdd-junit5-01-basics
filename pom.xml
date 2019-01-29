@@ -78,9 +78,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <!--jUNit5-->
-    <junit.jupiter.version>5.4.0-M1</junit.jupiter.version>
-
+    <!--TDD-->
+    <junit.jupiter.version>5.4.0-RC1</junit.jupiter.version>
+    <junit-platform-maven-plugin.version>1.0.0-M5</junit-platform-maven-plugin.version>
+    <jacoco.version>0.8.3</jacoco.version>
   </properties>
 
   <repositories>
@@ -103,8 +104,8 @@
     </snapshotRepository>
   </distributionManagement>
 
-
   <dependencies>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -152,39 +153,31 @@
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.1.0</version>
       </plugin>
-      <!--&lt;!&ndash; JUnit 5 requires Surefire version 2.22.1 or higher &ndash;&gt;-->
-      <!--<plugin>-->
-        <!--<artifactId>maven-surefire-plugin</artifactId>-->
-        <!--<version>3.0.0-M3</version>-->
-        <!--<configuration>-->
-          <!--<properties>-->
-            <!--<configurationParameters>-->
-              <!--junit.jupiter.conditions.deactivate = *-->
-              <!--junit.jupiter.extensions.autodetection.enabled = true-->
-              <!--junit.jupiter.testinstance.lifecycle.default = per_class-->
-              <!--junit.jupiter.execution.parallel.enabled = true-->
-            <!--</configurationParameters>-->
-          <!--</properties>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
       <plugin>
         <groupId>de.sormuras.junit</groupId>
         <artifactId>junit-platform-maven-plugin</artifactId>
-        <version>1.0.0-M4</version>
+        <version>${junit-platform-maven-plugin.version}</version>
         <extensions>true</extensions> <!-- Necessary to execute it in 'test' phase. -->
+
         <configuration>
+
           <executor>JAVA</executor>
           <javaOptions>
             <additionalOptions>
+              <!--<protools>-Dactivate.vaadin.protools=false</protools>-->
               <jacoco>${jacoco.java.option}</jacoco>
             </additionalOptions>
           </javaOptions>
+
+          <!--<tags>-->
+            <!--<tag>vaadin-protools</tag>-->
+          <!--</tags>-->
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.2</version>
+        <version>${jacoco.version}</version>
         <executions>
           <execution>
             <id>pre-unit-test</id>
@@ -212,6 +205,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
         <reportSets>
           <reportSet>
             <reports>
