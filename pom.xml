@@ -21,6 +21,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+
+  <parent>
+    <groupId>com.github.vaadin-learning-center.vaadin-dependencies</groupId>
+    <artifactId>vaadin-dependencies</artifactId>
+    <version>222bcc63</version>
+  </parent>
+
   <groupId>com.vaadin.tutorial</groupId>
   <artifactId>tdd-junit5-01-basics</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -70,28 +77,15 @@
   </licenses>
 
   <properties>
-    <!--technical-->
-    <!--<maven.compiler.release>10</maven.compiler.release>-->
-    <maven.compiler.target>8</maven.compiler.target>
-    <maven.compiler.source>8</maven.compiler.source>
 
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <!--TDD-->
-    <junit.jupiter.version>5.4.0-RC1</junit.jupiter.version>
-    <junit-platform-maven-plugin.version>1.0.0-M5</junit-platform-maven-plugin.version>
-    <jacoco.version>0.8.3</jacoco.version>
   </properties>
 
   <repositories>
     <repository>
-      <id>vaadin-addons</id>
-      <url>http://maven.vaadin.com/vaadin-addons</url>
-      <!--<url>http://maven.vaadin.com/</url>-->
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
     </repository>
   </repositories>
-
   <!-- Just to disable any accidental deployment to maven.central -->
   <distributionManagement>
     <repository>
@@ -109,19 +103,16 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -131,71 +122,22 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
-      </plugin>
-      <plugin>
-        <groupId>de.sormuras.junit</groupId>
-        <artifactId>junit-platform-maven-plugin</artifactId>
-        <version>${junit-platform-maven-plugin.version}</version>
-        <extensions>true</extensions> <!-- Necessary to execute it in 'test' phase. -->
-
-        <configuration>
-
-          <executor>JAVA</executor>
-          <javaOptions>
-            <additionalOptions>
-              <!--<protools>-Dactivate.vaadin.protools=false</protools>-->
-              <jacoco>${jacoco.java.option}</jacoco>
-            </additionalOptions>
-          </javaOptions>
-
-          <!--<tags>-->
-            <!--<tag>vaadin-protools</tag>-->
-          <!--</tags>-->
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <executions>
-          <execution>
-            <id>pre-unit-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-              <propertyName>jacoco.java.option</propertyName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
